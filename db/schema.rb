@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180421075002) do
+ActiveRecord::Schema.define(version: 20180421090438) do
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "username", null: false
@@ -18,7 +18,9 @@ ActiveRecord::Schema.define(version: 20180421075002) do
     t.json "data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "role", default: "patient", null: false
     t.index ["password_digest"], name: "index_users_on_password_digest"
+    t.index ["role"], name: "index_users_on_role"
     t.index ["username"], name: "index_users_on_username"
   end
 
