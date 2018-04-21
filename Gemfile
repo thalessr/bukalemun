@@ -40,6 +40,8 @@ group :development, :test do
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
   gem 'rspec-rails', '~> 3.7'
+  gem 'rubocop', '~> 0.52.1', require: false
+  gem 'rubocop-rspec'
 end
 
 group :development do
