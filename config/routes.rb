@@ -8,4 +8,5 @@ Rails.application.routes.draw do
 
   resources :sessions, only: %i[create destroy]
   resources :public_keys, only: %i[create index]
+  resources :encrypted_private_keys, only: %i[create index]
 end
