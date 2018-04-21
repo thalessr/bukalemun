@@ -10,7 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180421090438) do
+ActiveRecord::Schema.define(version: 20180421131103) do
+
+  create_table "encrypted_private_keys", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "user_id", null: false
+    t.text "key"
+    t.json "data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_encrypted_private_keys_on_user_id"
+  end
+
+  create_table "public_keys", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "user_id", null: false
+    t.text "key"
+    t.json "data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_public_keys_on_user_id"
+  end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "username", null: false
@@ -26,4 +44,6 @@ ActiveRecord::Schema.define(version: 20180421090438) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "encrypted_private_keys", "users"
+  add_foreign_key "public_keys", "users"
 end

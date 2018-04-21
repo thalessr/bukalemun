@@ -12,4 +12,9 @@ RSpec.describe User, type: :model do
     it { is_expected.to have_db_index(:username) }
     it { is_expected.to have_db_index(:password_digest) }
   end
+
+  describe 'associations' do
+    it { is_expected.to have_one(:public_key) }
+    it { is_expected.to have_one(:encrypted_private_key) }
+  end
 end

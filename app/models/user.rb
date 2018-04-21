@@ -11,10 +11,13 @@ class User < ApplicationRecord
   FIELDS = %i[last_ip first_name last_name third_party_token browser last_login].freeze
 
   has_secure_password
+  has_one :public_key, dependent: :restrict_with_error
+  has_one :encrypted_private_key, dependent: :restrict_with_error
 
   enum role: { doctor: 'doctor', patient: 'patient' }
 
   validates :username, :password_digest, presence: true
+  validates :auth_token, uniqueness: true
   validates :role, inclusion: { in: User::UserRoles::ALL }
 
   store_accessor :data, *FIELDS
