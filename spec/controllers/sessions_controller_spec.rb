@@ -39,7 +39,7 @@ RSpec.describe SessionsController, type: :controller do
       before(:each) do
         user.sign_in(request)
         request.headers.merge!({'Authorization' => user.auth_token})
-        delete :destroy, params: { id: user.auth_token}
+        delete :destroy, params: { id: user.auth_token }
       end
 
       it { should respond_with 204 }

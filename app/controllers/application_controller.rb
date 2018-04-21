@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def current_user
-    @current_user ||= User.by_auth_token(request.headers['Authorization'])&.first
+    @current_user ||= User.find_by(auth_token: request.headers['Authorization'])
   end
 
   def require_authentication

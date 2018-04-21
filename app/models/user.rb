@@ -8,7 +8,7 @@ class User < ApplicationRecord
     ALL = constants(false).collect { |const| const_get(const) }
   end
 
-  FIELDS = %i[last_ip first_name last_name auth_token third_party_token browser last_login].freeze
+  FIELDS = %i[last_ip first_name last_name third_party_token browser last_login].freeze
 
   has_secure_password
 
@@ -19,13 +19,18 @@ class User < ApplicationRecord
 
   store_accessor :data, *FIELDS
 
-  scope :by_auth_token, ->(auth_token) { where("data->'$.auth_token' = :auth_token", auth_token: auth_token).limit(1) }
-
   def sign_in(request)
-    self.auth_token = User.friendly_token
+    generate_authentication_token
     self.last_ip = request.remote_ip
     self.last_login = Time.zone.now
     save!
+  end
+
+  def generate_authentication_token
+    loop do
+      self.auth_token = User.friendly_token
+      break unless self.class.exists?(auth_token: auth_token)
+    end
   end
 
   def sign_out
