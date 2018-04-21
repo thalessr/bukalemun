@@ -6,7 +6,10 @@ Rails.application.routes.draw do
     get ':username', action: :show, on: :collection
   end
 
-  resources :sessions, only: %i[create destroy]
+  resources :sessions, only: %i[create] do
+    delete '/', action: :destroy, on: :collection
+  end
   resources :public_keys, only: %i[create index]
   resources :encrypted_private_keys, only: %i[create index]
+  resources :contents, except: %i[destroy edit update]
 end

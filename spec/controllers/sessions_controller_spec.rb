@@ -2,13 +2,11 @@
 
 require 'rails_helper'
 
-RSpec.describe SessionsController, type: :controller do
-
+RSpec.describe SessionsController, type: :controller do # rubocop:disable BlockLength
   let(:user) { create(:user) }
 
   describe 'POST #create - new session' do
-
-    context 'When a api client provides a correct login' do
+    context 'when a api client provides a correct login' do
       before do
         login_attributes = { username: user.username, password: user.password }
         post :create, params: { session: login_attributes }
@@ -20,7 +18,7 @@ RSpec.describe SessionsController, type: :controller do
       end
       it { is_expected.to respond_with 200 }
     end
-    context 'When a api client provides an incorrect login' do
+    context 'when a api client provides an incorrect login' do
       before do
         login_attributes = { username: user.username, password: 'Viru' }
         post :create, params: { session: login_attributes }
@@ -33,21 +31,20 @@ RSpec.describe SessionsController, type: :controller do
     end
   end
 
-  context 'DELETE #destroy' do
-
-    context 'When a client has a valid session' do
-      before(:each) do
+  describe 'DELETE #destroy' do
+    context 'when a client has a valid session' do
+      before do
         user.sign_in(request)
-        request.headers.merge!({'Authorization' => user.auth_token})
-        delete :destroy, params: { id: user.auth_token }
+        request.headers['Authorization'] = user.auth_token
+        delete :destroy
       end
 
-      it { should respond_with 204 }
+      it { is_expected.to respond_with 204 }
     end
-    context 'When a client has an invalid session' do
-      before(:each) do
-        request.headers.merge!({'Authorization' => nil})
-        delete :destroy, params: { id: user.id }
+    context 'when a client has an invalid session' do
+      before do
+        request.headers['Authorization'] = nil
+        delete :destroy
       end
 
       it 'returns a json with an error' do
@@ -55,7 +52,7 @@ RSpec.describe SessionsController, type: :controller do
         expect(json_response[:errors]).to eq('Access denied')
       end
 
-      it { should respond_with 401 }
+      it { is_expected.to respond_with 401 }
     end
   end
 end

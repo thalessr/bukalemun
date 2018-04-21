@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 class SessionsController < ApplicationController
+
   before_action :require_authentication!, except: :create
 
   def create
@@ -22,10 +25,11 @@ class SessionsController < ApplicationController
   private
 
   def render_error
-    render json: {errors: 'Username/Password mismatch'}, status: :unauthorized
+    render json: { errors: 'Username/Password mismatch' }, status: :unauthorized
   end
 
   def session_params
     params.require(:session).permit(:username, :password)
   end
+
 end

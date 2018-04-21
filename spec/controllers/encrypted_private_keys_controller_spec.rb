@@ -13,7 +13,7 @@ RSpec.describe EncryptedPrivateKeysController, type: :controller do
     let(:encrypted_private_key) { attributes_for(:encrypted_private_key, key: key) }
 
     context 'When a encrypted_private_key is created' do
-      let(:key) { 'Latitue 54' }
+      let(:key) { 'Latitude 54' }
 
       it 'Returns the new encrypted_private_key json' do
         post :create, params: { encrypted_private_key: encrypted_private_key }

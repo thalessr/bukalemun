@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 class EncryptedPrivateKeysController < ApplicationController
+
   before_action :require_authentication!
 
   def index
@@ -19,4 +22,5 @@ class EncryptedPrivateKeysController < ApplicationController
   def encrypted_private_key_params
     params.require(:encrypted_private_key).permit(:key)
   end
+
 end

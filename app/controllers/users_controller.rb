@@ -22,7 +22,7 @@ class UsersController < ApplicationController
     if user.present?
       render json: user, status: :found
     else
-      render json: { error: { errors: 'User not found' } }, status: :not_found
+      render json: { errors: 'User not found' }, status: :not_found
     end
   end
 
