@@ -38,7 +38,9 @@ RSpec.describe UsersController, type: :controller do
     let(:user) { create(:user) }
 
     def retrieve_user
-      get :show, params: { username: user.username, format: :json }
+      user.sign_in(request)
+      request.headers.merge!({'Authorization' => user.auth_token})
+      get :show, params: { username: user.username }, format: :json
     end
 
     it 'returns the information about a user on a hash' do

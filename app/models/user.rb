@@ -19,10 +19,11 @@ class User < ApplicationRecord
 
   store_accessor :data, *FIELDS
 
+  scope :by_auth_token, ->(auth_token) { where("data->'$.auth_token' = :auth_token", auth_token: auth_token).limit(1) }
+
   def sign_in(request)
     self.auth_token = User.friendly_token
     self.last_ip = request.remote_ip
-    self.browser = request.user_agent
     self.last_login = Time.zone.now
     save!
   end

@@ -2,6 +2,8 @@
 
 class UsersController < ApplicationController
 
+  before_action :require_authentication, except: :create
+
   def index
     render json: User.all.order(:username)
   end
