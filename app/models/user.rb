@@ -14,6 +14,9 @@ class User < ApplicationRecord
   has_one :public_key, dependent: :restrict_with_error
   has_one :encrypted_private_key, dependent: :restrict_with_error
 
+  has_many :sent_contents, class_name: 'Content', dependent: :restrict_with_error, foreign_key: :owner_id
+  has_many :received_contents, class_name: 'Content', dependent: :restrict_with_error, foreign_key: :recipient_id
+
   enum role: { doctor: 'doctor', patient: 'patient' }
 
   validates :username, :password_digest, presence: true

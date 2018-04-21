@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180421131103) do
+ActiveRecord::Schema.define(version: 20180421132129) do
+
+  create_table "contents", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "owner_id", null: false
+    t.bigint "recipient_id", null: false
+    t.text "message"
+    t.json "data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["owner_id"], name: "index_contents_on_owner_id"
+    t.index ["recipient_id"], name: "index_contents_on_recipient_id"
+  end
 
   create_table "encrypted_private_keys", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "user_id", null: false
@@ -44,6 +55,8 @@ ActiveRecord::Schema.define(version: 20180421131103) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "contents", "users", column: "owner_id"
+  add_foreign_key "contents", "users", column: "recipient_id"
   add_foreign_key "encrypted_private_keys", "users"
   add_foreign_key "public_keys", "users"
 end

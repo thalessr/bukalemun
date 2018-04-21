@@ -16,5 +16,7 @@ RSpec.describe User, type: :model do
   describe 'associations' do
     it { is_expected.to have_one(:public_key) }
     it { is_expected.to have_one(:encrypted_private_key) }
+    it { is_expected.to have_many(:sent_contents) }
+    it { is_expected.to have_many(:received_contents) }
   end
 end
