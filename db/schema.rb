@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 20180421132129) do
 
   create_table "encrypted_private_keys", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "user_id", null: false
-    t.text "key"
+    t.text "key", null: false
     t.json "data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 20180421132129) do
 
   create_table "public_keys", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "user_id", null: false
-    t.text "key"
+    t.text "key", null: false
     t.json "data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(version: 20180421132129) do
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "username", null: false
     t.string "password_digest", null: false
-    t.string "auth_token"
+    t.string "auth_token", null: false
     t.json "data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  before_action :require_authentication, except: :create
+  before_action :require_authentication!, except: :create
 
   def create
     user = User.find_by(username: session_params[:username])

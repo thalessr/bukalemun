@@ -6,7 +6,7 @@ class CreateUsers < ActiveRecord::Migration[5.1]
     create_table :users do |t|
       t.string :username, null: false
       t.string :password_digest, null: false, index: true
-      t.string :auth_token
+      t.string :auth_token, null: false
       t.json :data
 
       t.index :auth_token, unique: true

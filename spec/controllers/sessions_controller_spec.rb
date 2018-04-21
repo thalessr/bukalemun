@@ -44,18 +44,18 @@ RSpec.describe SessionsController, type: :controller do
 
       it { should respond_with 204 }
     end
-    # context 'When a client has an invalid session' do
-    #   before(:each) do
-    #     request.headers.merge!({'Authorization' => nil})
-    #     delete :destroy, params: { id: user.id }
-    #   end
-    #
-    #   it 'returns a json with an error' do
-    #     json_response = JSON.parse(response.body, symbolize_names: true)
-    #     expect(json_response[:errors]).to eq('Not authorized!')
-    #   end
-    #
-    #   it { should respond_with 401 }
-    # end
+    context 'When a client has an invalid session' do
+      before(:each) do
+        request.headers.merge!({'Authorization' => nil})
+        delete :destroy, params: { id: user.id }
+      end
+
+      it 'returns a json with an error' do
+        json_response = JSON.parse(response.body, symbolize_names: true)
+        expect(json_response[:errors]).to eq('Access denied')
+      end
+
+      it { should respond_with 401 }
+    end
   end
 end

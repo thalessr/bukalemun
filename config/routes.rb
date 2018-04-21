@@ -7,4 +7,5 @@ Rails.application.routes.draw do
   end
 
   resources :sessions, only: %i[create destroy]
+  resources :public_keys, only: %i[create index]
 end

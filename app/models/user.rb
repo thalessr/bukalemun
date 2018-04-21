@@ -19,11 +19,13 @@ class User < ApplicationRecord
 
   enum role: { doctor: 'doctor', patient: 'patient' }
 
-  validates :username, :password_digest, presence: true
+  validates :username, :password_digest, :auth_token, presence: true
   validates :auth_token, uniqueness: true
   validates :role, inclusion: { in: User::UserRoles::ALL }
 
   store_accessor :data, *FIELDS
+
+  before_validation :generate_authentication_token, on: :create
 
   def sign_in(request)
     generate_authentication_token

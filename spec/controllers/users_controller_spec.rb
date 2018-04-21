@@ -38,8 +38,9 @@ RSpec.describe UsersController, type: :controller do
     let(:user) { create(:user) }
 
     def retrieve_user
+
       user.sign_in(request)
-      request.headers.merge!({'Authorization' => user.auth_token})
+      request.headers['Authorization'] = user.auth_token
       get :show, params: { username: user.username }, format: :json
     end
 
