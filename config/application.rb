@@ -23,5 +23,12 @@ module Bukalemun
       g.factory_bot dir: 'spec/factories'
     end
 
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins '*'
+        resource '*', headers: :any, methods: %i[get post delete options put]
+      end
+    end
+
   end
 end
